@@ -9,20 +9,36 @@
         let stompClient = null;
 
         function sendMessage() {
-            let message = {
-                payload: 'hello world',
-                topicURI: '/app/topic'
+            const input = document.getElementById("messageInput");
+            const name = input.value;
+
+            // let message = {
+            //     payload: 'hello world',
+            //     topicURI: '/app/topic'
+            // }
+
+            const product = {
+                name,
+                type : "type1",
+                price: 10,
             }
-            stompClient.send('/app/message', {}, JSON.stringify(message));
+            stompClient.send('/app/products', {}, JSON.stringify(product));
+        }
+
+        int getMinutesToInfect(vector<vector<int>>& grid) {
+
         }
 
         function connect() {
             const socket = new SockJS("/message");
+            const text = document.getElementById("text");
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function (frame) {
                 console.log("connected" + frame)
                 stompClient.subscribe('/topic', function (messageOutput) {
-                    console.log(messageOutput)
+                    const data = JSON.parse(messageOutput.body);
+                    console.log(data);
+                    text.innerText += data.name + " ";
                 })
             })
         }
@@ -32,8 +48,11 @@
 <body>
 <div>
     <button onclick="connect()">button</button>
-    <input type="text">
+    <input id="messageInput" type="text">
     <button onclick="sendMessage()">send</button>
+    <pre id="text">
+
+    </pre>
 </div>
 </body>
 </html>

@@ -17,7 +17,6 @@ public class MessageController {
     private final SimpMessagingTemplate template;
 
     @MessageMapping("/message")
-//    @SendTo("/topic")
     public void messageProcess(RequestMessage message) {
         log.info("message recieved {}", message);
         template.convertAndSend("/topic", message.getPayload());
