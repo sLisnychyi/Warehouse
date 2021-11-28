@@ -1,6 +1,7 @@
 package com.example.warehouse.service;
 
 import com.example.warehouse.aspect.Monitoring;
+import com.example.warehouse.dto.ProductAbstractDto;
 import com.example.warehouse.dto.ProductDto;
 import com.example.warehouse.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     @Monitoring
-    public List<ProductDto> getProductsCount() {
+    public List<ProductAbstractDto> getProductsCount() {
         return productRepository.findProductsCountByType();
     }
 

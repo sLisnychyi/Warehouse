@@ -1,0 +1,1 @@
+insert into products (id,type,name,price) values (1,'fruits','apple', 20);

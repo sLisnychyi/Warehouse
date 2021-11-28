@@ -23,8 +23,12 @@ public class MonitoringAspect {
 //
     @Around("pointcut()")
     public Object aroundLogic(ProceedingJoinPoint pjp) throws Throwable {
-        logger.info("");
-        return pjp.proceed();
+        long start = System.currentTimeMillis();
+        Object proceed = pjp.proceed();
+        long end = System.currentTimeMillis();
+
+        logger.info("method is executed in {} ms", end-start);
+        return proceed;
 
     }
 
