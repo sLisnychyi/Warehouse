@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="sockjs-0.3.4.js"></script>
+    <script src="stomp.js"></script>
+    <script type="application/javascript">
+        let stompClient = null;
+
+        function sendMessage() {
+            let message = {
+                payload: 'hello world',
+                topicURI: '/app/topic'
+            }
+            stompClient.send('/app/message', {}, JSON.stringify(message));
+        }
+
+        function connect() {
+            const socket = new SockJS("/message");
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log("connected" + frame)
+                stompClient.subscribe('/topic', function (messageOutput) {
+                    console.log(messageOutput)
+                })
+            })
+        }
+
+    </script>
+</head>
+<body>
+<div>
+    <button onclick="connect()">button</button>
+    <input type="text">
+    <button onclick="sendMessage()">send</button>
+</div>
+</body>
+</html>

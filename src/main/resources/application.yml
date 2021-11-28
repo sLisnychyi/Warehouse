@@ -1,6 +1,7 @@
 logging:
   file:
-    path: /log/aspect.log
+#    path: /resources/aspect.log
+#    name: aspect.log
 
 spring:
   datasource:
